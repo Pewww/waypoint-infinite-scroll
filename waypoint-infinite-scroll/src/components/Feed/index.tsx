@@ -2,8 +2,7 @@ import * as React from 'react';
 import InfiniteScroll from '../InfiniteScroll';
 import Loading from '../Loading';
 import axios from 'axios';
-import {IFeedItem} from './FeedItem';
-import FeedItem from './FeedItem';
+import FeedItem, {IFeedItem} from './FeedItem';
 import styled from 'styled-components';
 
 interface Props {
