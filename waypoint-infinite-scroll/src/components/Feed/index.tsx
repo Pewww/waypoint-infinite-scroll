@@ -40,10 +40,7 @@ export default class Feed extends React.Component<Props, State> {
   fetchData = (uri: string) => {
     const {dataList} = this.state;
 
-    // Loading 컴포넌트의 정확한 확인을 위해 2초의 Delay를 추가했습니다.
-
-    setTimeout(() => {
-      axios.get(uri)
+    axios.get(uri)
       .then(({data: {results, next, previous}}) => {
         this.setState({
           dataList: [
@@ -55,13 +52,15 @@ export default class Feed extends React.Component<Props, State> {
         })
       })
       .catch(err => new Error(err));
-    }, 2000);
   }
 
   fetchMore = () => {
     const {next} = this.state;
 
-    this.fetchData(next as string);
+    // Loading 컴포넌트의 정확한 확인을 위해 2초의 Delay를 추가했습니다.
+    setTimeout(() => {
+      this.fetchData(next as string)
+    }, 2000);
   }
 
   render() {
