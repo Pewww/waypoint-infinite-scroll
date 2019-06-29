@@ -17,7 +17,7 @@ const Loading = React.memo(({innerRef}: {
   <p ref={innerRef}>
     <Img
       src={LoadingIcon}
-      alt="피드를 불러오는 중입니다."
+      alt="피드를 불러오는 중입니다..."
     />
   </p>
 ));
