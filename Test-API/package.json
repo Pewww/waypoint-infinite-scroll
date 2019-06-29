@@ -1,0 +1,17 @@
+{
+  "name": "infinite-test-api",
+  "version": "1.0.0",
+  "description": "Simple Api for infinite scrolling",
+  "main": "./app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Pewww",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "ember-cli-content-security-policy": "^1.1.1",
+    "express": "^4.17.0",
+    "express-generator": "^4.16.1"
+  }
+}
