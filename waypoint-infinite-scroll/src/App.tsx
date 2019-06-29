@@ -1,24 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
+import Feed from './components/Feed';
 import './App.css';
 
-const App: React.FC = () => {
+const BASE_URL = 'http://localhost:5257/feed/';
+
+const App: React.SFC = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Feed fetchURI={BASE_URL}/>
     </div>
   );
 }

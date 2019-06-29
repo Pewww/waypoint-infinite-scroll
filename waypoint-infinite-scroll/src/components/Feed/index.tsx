@@ -4,6 +4,7 @@ import Loading from '../Loading';
 import axios from 'axios';
 import {IFeedItem} from './FeedItem';
 import FeedItem from './FeedItem';
+import styled from 'styled-components';
 
 interface Props {
   fetchURI: string;
@@ -14,6 +15,10 @@ interface State {
   next: string | null;
   previous: string | null;
 }
+
+const Li = styled.li`
+  list-style: none;
+`;
 
 export default class Feed extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -35,7 +40,10 @@ export default class Feed extends React.Component<Props, State> {
   fetchData = (uri: string) => {
     const {dataList} = this.state;
 
-    axios.get(uri)
+    // Loading 컴포넌트의 정확한 확인을 위해 2초의 Delay를 추가했습니다.
+
+    setTimeout(() => {
+      axios.get(uri)
       .then(({data: {results, next, previous}}) => {
         this.setState({
           dataList: [
@@ -47,6 +55,7 @@ export default class Feed extends React.Component<Props, State> {
         })
       })
       .catch(err => new Error(err));
+    }, 2000);
   }
 
   fetchMore = () => {
@@ -64,16 +73,16 @@ export default class Feed extends React.Component<Props, State> {
     return (
       <div>
         <InfiniteScroll
-          loader={Loading}
+          loader={<Loading/>}
           hasMore={!!next}
           loadMore={this.fetchMore}
           threshold="-250px"
         >
           <ul>
             {dataList.map(({id, ...rest}) => (
-              <li key={id}>
+              <Li key={id}>
                 <FeedItem {...rest}/>
-              </li>
+              </Li>
             ))}
           </ul>
         </InfiniteScroll>

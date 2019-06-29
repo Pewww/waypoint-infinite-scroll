@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {Omit} from '../../@types/common';
+import styled from 'styled-components';
 
 export interface IFeedItem {
   name: string;
@@ -8,16 +9,24 @@ export interface IFeedItem {
   id: string; // HashId
 }
 
+const FeedItemDiv = styled.div`
+  width: 450px;
+  height: 550px;
+  margin: 50px auto;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+`;
+
 const FeedItem: React.ExoticComponent< Omit<IFeedItem, 'id'> > = React.memo(({
   name,
   title,
   contents
 }) => (
-  <div>
+  <FeedItemDiv>
     <h1>제목: {title}</h1>
     <p>이름: {name}</p>
     <pre>{contents}</pre>
-  </div>
+  </FeedItemDiv>
 ));
 
 export default FeedItem;

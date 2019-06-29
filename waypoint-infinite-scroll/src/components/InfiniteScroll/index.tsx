@@ -6,7 +6,7 @@ interface Props {
   loadMore: () => void;
   threshold?: string;
   hasMore: boolean;
-  loader: React.ReactNode;
+  loader: React.ReactNode | React.ComponentType;
   children: React.ReactNode;
   className?: string;
 }
