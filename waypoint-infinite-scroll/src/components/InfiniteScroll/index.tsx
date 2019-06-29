@@ -15,7 +15,7 @@ const InfiniteScrollDiv = styled.div`
   padding-top: 35px;
 `;
 
-const InfiniteScroll: React.SFC<Props> = React.memo(({
+const InfiniteScroll: React.ExoticComponent<Props> = React.memo(({
   loadMore,
   threshold,
   hasMore,

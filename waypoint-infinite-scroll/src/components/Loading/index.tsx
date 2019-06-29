@@ -11,9 +11,9 @@ const Img = styled.img`
   padding: 20px 0;
 `;
 
-const Loading = React.memo(({innerRef}: {
+const Loading: React.ExoticComponent<{
   innerRef: React.RefObject<HTMLParagraphElement>
-}) => (
+}> = React.memo(({innerRef}) => (
   <p ref={innerRef}>
     <Img
       src={LoadingIcon}
