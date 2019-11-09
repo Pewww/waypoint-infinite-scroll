@@ -29,7 +29,7 @@ const InfiniteScroll: React.ExoticComponent<Props> = React.memo(({
       <Waypoint
         onEnter={loadMore}
         bottomOffset={threshold}
-        scrollableAncestor="window"
+        // scrollableAncestor="window"
       >
         {loader}
       </Waypoint>
