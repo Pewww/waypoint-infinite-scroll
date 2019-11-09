@@ -4,6 +4,7 @@ import Loading from '../Loading';
 import axios from 'axios';
 import FeedItem, {IFeedItem} from './FeedItem';
 import styled from 'styled-components';
+import {SECOND} from '../../constants/times';
 
 interface Props {
   fetchURI: string;
@@ -15,76 +16,61 @@ interface State {
   previous: string | null;
 }
 
-const Li = styled.li`
-  list-style: none;
-`;
+const Feed: React.FC<Props> = React.memo(({fetchURI}) => {
+  const [{dataList, next, previous}, setData] = React.useState<State>({
+    dataList: [],
+    next: null,
+    previous: null
+  });
 
-export default class Feed extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-
-    this.state = {
-      dataList: [],
-      next: null,
-      previous: null
-    };
-  }
-
-  componentDidMount() {
-    const {fetchURI} = this.props;
-
-    this.fetchData(fetchURI);
-  }
-
-  fetchData = (uri: string) => {
-    const {dataList} = this.state;
-
+  const fetchData = React.useCallback((uri: string) => {
     axios.get(uri)
       .then(({data: {results, next, previous}}) => {
-        this.setState({
+        setData(curr => ({
+          ...curr,
           dataList: [
-            ...dataList,
+            ...curr.dataList,
             ...results
           ],
           next,
           previous
-        })
+        }));
       })
       .catch(err => new Error(err));
-  }
+  }, []);
 
-  fetchMore = () => {
-    const {next} = this.state;
-
-    // Loading 컴포넌트의 정확한 확인을 위해 2초의 Delay를 추가했습니다.
+  const fetchMore = React.useCallback(() => {
+    // Loading 컴포넌트의 정확한 확인을 위해 2초의 Delay를 임시로 추가했습니다.
     setTimeout(() => {
-      this.fetchData(next as string)
-    }, 2000);
-  }
+      fetchData(next as string);
+    }, 2 * SECOND);
+  }, []);
 
-  render() {
-    const {
-      dataList,
-      next
-    } = this.state;
+  React.useEffect(() => {
+    fetchData(fetchURI);
+  }, []);
 
-    return (
-      <div>
-        <InfiniteScroll
-          loader={<Loading/>}
-          hasMore={!!next}
-          loadMore={this.fetchMore}
-          threshold="-250px"
-        >
-          <ul>
-            {dataList.map(({id, ...rest}) => (
-              <Li key={id}>
-                <FeedItem {...rest}/>
-              </Li>
-            ))}
-          </ul>
-        </InfiniteScroll>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <InfiniteScroll
+        loader={<Loading/>}
+        hasMore={!!next}
+        loadMore={fetchMore}
+        threshold="-250px"
+      >
+        <ul>
+          {dataList.map(({id, ...rest}) => (
+            <FeedItem
+              key={id}
+              {...rest}
+            />
+          ))}
+        </ul>
+      </InfiniteScroll>
+    </div>
+  );
+});
+
+Feed.displayName = 'Feed';
+
+export default Feed;
