@@ -27,7 +27,7 @@ const Loading: React.ExoticComponent<Props> = React.memo(({innerRef}) => (
 const LoadingWithRef = React.memo(
   React.forwardRef((props, ref) => (
     <Loading
-      innerRef={ref}
+      innerRef={ref as React.RefObject<HTMLParagraphElement>}
       {...props}
     />
   )

@@ -3,7 +3,6 @@ import InfiniteScroll from '../InfiniteScroll';
 import Loading from '../Loading';
 import axios from 'axios';
 import FeedItem, {IFeedItem} from './FeedItem';
-import styled from 'styled-components';
 import {SECOND} from '../../constants/times';
 
 interface Props {
@@ -44,7 +43,7 @@ const Feed: React.FC<Props> = React.memo(({fetchURI}) => {
     setTimeout(() => {
       fetchData(next as string);
     }, 2 * SECOND);
-  }, []);
+  }, [next]);
 
   React.useEffect(() => {
     fetchData(fetchURI);
