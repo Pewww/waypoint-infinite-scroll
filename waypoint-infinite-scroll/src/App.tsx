@@ -1,14 +1,11 @@
 import React from 'react';
 import Feed from './components/Feed';
+import {BASE_URL} from './constants/env';
 
-const BASE_URL = 'http://localhost:5257/feed/';
-
-const App: React.SFC = () => {
-  return (
-    <div className="App">
-      <Feed fetchURI={BASE_URL}/>
-    </div>
-  );
-}
+const App = () => (
+  <div className="app">
+    <Feed fetchURI={BASE_URL}/>
+  </div>
+);
 
 export default App;
