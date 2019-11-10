@@ -34,10 +34,7 @@ Using yarn:
 ```shell
 $ yarn && yarn start
 ```
-<br>
-
 ----
-<br>
 <h4>2번 터미널 (Server)</h4>
 
 ```shell
